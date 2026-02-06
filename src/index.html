@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lean On Us — Your AI Chief of Staff</title>
+    <meta name="description" content="A private AI assistant that runs on your machine, connected to your chat apps, trained on your brain. For founders who refuse to drown in busywork.">
+    <meta property="og:title" content="Lean On Us — Your AI Chief of Staff">
+    <meta property="og:description" content="A private AI assistant that runs on your machine, connected to your chat apps, trained on your brain. For founders who refuse to drown in busywork.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Lean On Us — Your AI Chief of Staff">
+    <meta name="twitter:description" content="Private AI assistant for founders. $2,500 setup + $500/mo.">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #0a0a0b;
+            --surface: #141416;
+            --border: #2a2a2e;
+            --text: #fafafa;
+            --text-muted: #888;
+            --accent: #22d3ee;
+            --accent-glow: rgba(34, 211, 238, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 8vw, 56px);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            max-width: 540px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            margin-bottom: 12px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .cta-note {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 80px;
+        }
+
+        .section {
+            margin-bottom: 64px;
+        }
+
+        .section-title {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .feature-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .feature {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .feature-icon {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .feature h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .feature p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .pricing-card {
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .price {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .price-note {
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .price-features {
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .price-features li {
+            list-style: none;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 15px;
+        }
+
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+
+        .price-features li::before {
+            content: "✓";
+            color: var(--accent);
+            margin-right: 12px;
+            font-weight: 600;
+        }
+
+        .testimonial {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        .testimonial-author {
+            margin-top: 16px;
+            font-style: normal;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-q {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .faq-a {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .footer {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 48px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+            <img src="/logo.svg" alt="Lean On Us" width="48" height="48">
+            <span style="font-weight: 600; font-size: 18px;">Lean On Us</span>
+        </div>
+
+        <div class="badge">🧠 Now Accepting Clients</div>
+        
+        <h1>Your AI <span class="highlight">Chief of Staff</span></h1>
+        
+        <p class="subtitle">
+            A private AI assistant that runs on your machine, connected to your chat apps, trained on your brain. For founders who refuse to drown in busywork.
+        </p>
+
+        <a href="https://calendar.app.google/x8WNAWADQqvniKaZ7" class="cta-button">Book a Free Strategy Call →</a>
+        <p class="cta-note">15 minutes. No pitch. Just see if it's right for you.</p>
+        <p style="margin-top: 16px; margin-bottom: 48px;"><a href="https://buy.stripe.com/00wfZgeSgdcIbqp4Ocew80a" style="color: var(--accent); text-decoration: none; font-weight: 500;">Ready to go? Pay now & skip the call →</a></p>
+
+        <div class="section">
+            <div class="section-title">What You Get</div>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>100% Private</h3>
+                    <p>Runs on your hardware. Your data never touches third-party servers. Full ownership, zero lock-in.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💬</div>
+                    <h3>Lives in Your Chat Apps</h3>
+                    <p>WhatsApp, Telegram, iMessage, Slack, Discord — talk to your assistant where you already live.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🧠</div>
+                    <h3>Trained on Your Brain</h3>
+                    <p>Your docs, your workflows, your preferences. It learns how YOU work and adapts accordingly.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Actually Does Things</h3>
+                    <p>Email, calendar, research, reminders, file management, web automation — not just answers, actions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Pricing</div>
+            <div class="pricing-card">
+                <div class="price">$2,500</div>
+                <div class="price-note">One-time setup + $500/month support</div>
+                <ul class="price-features">
+                    <li>Full system setup on your hardware</li>
+                    <li>Connected to your chat apps</li>
+                    <li>Custom training on your docs & workflows</li>
+                    <li>48-hour turnaround</li>
+                    <li>Ongoing support & updates</li>
+                    <li>Cancel monthly anytime</li>
+                </ul>
+                <a href="https://calendar.app.google/x8WNAWADQqvniKaZ7" class="cta-button">Book a Call First →</a>
+                <p style="margin-top: 12px;"><a href="https://buy.stripe.com/00wfZgeSgdcIbqp4Ocew80a" style="color: var(--accent); text-decoration: none; font-weight: 500;">Or pay now & get started immediately →</a></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Common Questions</div>
+            <div class="faq-item">
+                <div class="faq-q">What hardware do I need?</div>
+                <div class="faq-a">A Mac with Apple Silicon (M1/M2/M3/M4) is ideal. We can also set up on a Linux server or cloud VM if you prefer.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Is my data really private?</div>
+                <div class="faq-a">Yes. The AI runs entirely on your machine. Your conversations, documents, and workflows never leave your hardware unless you explicitly share them.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What can it actually do?</div>
+                <div class="faq-a">Email drafting, calendar management, research, reminders, file organization, web browsing, data entry, and hundreds of automations. If it can be done on a computer, it can probably be automated.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">How is this different from ChatGPT/Claude?</div>
+                <div class="faq-a">Those are chat interfaces. This is a full assistant with persistent memory, real integrations, and the ability to take action — not just answer questions.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Lean On Us</strong></p>
+            <p style="margin-top: 8px; font-style: italic; color: var(--accent);">"Whatever it takes."</p>
+            <p style="margin-top: 8px;">Built by founders, for founders.</p>
+            <p style="margin-top: 16px;">Questions? <a href="mailto:gavin@whynotus.ai">gavin@whynotus.ai</a></p>
+            <p style="margin-top: 24px; font-size: 12px; color: #555;">Lean On Us is a division of Why Not Us Labs LLC</p>
+        </div>
+    </div>
+</body>
+</html>
