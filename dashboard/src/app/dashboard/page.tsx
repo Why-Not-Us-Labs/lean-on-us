@@ -49,7 +49,7 @@ export default function DashboardPage() {
         .single()
 
       if (membership) {
-        setOrg(membership.organizations as Organization)
+        setOrg(membership.organizations as unknown as Organization)
       }
 
       const [callsRes, leadsRes, recentCallsRes] = await Promise.all([
@@ -128,9 +128,9 @@ export default function DashboardPage() {
                     Upgrade to Starter to activate your AI phone assistant and start handling real calls.
                   </p>
                 </div>
-                <Button asChild>
-                  <Link href="/dashboard/billing">Upgrade Now</Link>
-                </Button>
+                <Link href="/dashboard/billing">
+                  <Button>Upgrade Now</Button>
+                </Link>
               </div>
             </CardContent>
           </Card>
@@ -168,9 +168,9 @@ export default function DashboardPage() {
                   }
                 </p>
                 {org?.tier === "free" && (
-                  <Button asChild className="mt-4" variant="outline">
-                    <Link href="/dashboard/billing">View Plans</Link>
-                  </Button>
+                  <Link href="/dashboard/billing">
+                    <Button className="mt-4" variant="outline">View Plans</Button>
+                  </Link>
                 )}
               </div>
             ) : (

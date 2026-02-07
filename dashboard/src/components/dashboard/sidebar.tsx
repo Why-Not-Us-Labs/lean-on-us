@@ -54,7 +54,7 @@ export function Sidebar() {
         .single()
 
       if (membership) {
-        setOrg(membership.organizations as Organization)
+        setOrg(membership.organizations as unknown as Organization)
       }
     } catch (error) {
       console.error("Error loading organization:", error)

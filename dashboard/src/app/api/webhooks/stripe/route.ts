@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
           .from("organizations")
           .update({
             subscription_status: subscription.status,
-            current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+            current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
           })
           .eq("id", org.id)
         
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
       }
 
       case "invoice.payment_failed": {
-        const invoice = event.data.object
+        const invoice = event.data.object as any
         
         if (invoice.subscription) {
           // Find org by subscription ID

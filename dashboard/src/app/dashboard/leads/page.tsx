@@ -153,7 +153,7 @@ export default function LeadsPage() {
         .single()
 
       if (membership) {
-        setOrg(membership.organizations as Organization)
+        setOrg(membership.organizations as unknown as Organization)
       }
 
       const { data } = await supabase
@@ -189,12 +189,12 @@ export default function LeadsPage() {
                 Upgrade to start capturing leads automatically from your AI phone calls. 
                 Track prospects, scores, and follow-up opportunities.
               </p>
-              <Button asChild size="lg">
-                <Link href="/dashboard/billing">
+              <Link href="/dashboard/billing">
+                <Button size="lg">
                   <Zap className="mr-2 h-5 w-5" />
                   Upgrade to Starter
-                </Link>
-              </Button>
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         ) : (

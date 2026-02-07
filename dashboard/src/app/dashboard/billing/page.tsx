@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { useSearchParams } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -10,9 +10,16 @@ import { createClient } from "@/lib/supabase/client"
 import { TIER_CONFIG, getTierLimits } from "@/lib/tier-config"
 import { formatCurrency } from "@/lib/utils"
 import type { OrgTier, Organization } from "@/lib/supabase/types"
-import { getStripe } from "@/lib/stripe-client"
 
 export default function BillingPage() {
+  return (
+    <Suspense fallback={<div className="flex h-full items-center justify-center"><div className="h-8 w-8 animate-spin rounded-full border-b-2 border-primary" /></div>}>
+      <BillingContent />
+    </Suspense>
+  )
+}
+
+function BillingContent() {
   const [org, setOrg] = useState<Organization | null>(null)
   const [loading, setLoading] = useState(true)
   const [upgrading, setUpgrading] = useState<OrgTier | null>(null)
@@ -38,7 +45,7 @@ export default function BillingPage() {
         .single()
 
       if (membership) {
-        setOrg(membership.organizations as Organization)
+        setOrg(membership.organizations as unknown as Organization)
       }
     } catch (error) {
       console.error("Error loading organization:", error)
@@ -60,8 +67,7 @@ export default function BillingPage() {
 
       const { url } = await response.json()
       if (url) {
-        const stripe = await getStripe()
-        await stripe?.redirectToCheckout({ sessionId: url.split("/").pop() })
+        window.location.href = url
       }
     } catch (error) {
       console.error("Error creating checkout session:", error)

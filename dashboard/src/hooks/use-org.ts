@@ -55,7 +55,7 @@ export function useOrg(): OrgContext {
           return
         }
 
-        setOrg(orgRaw as Organization)
+        setOrg(orgRaw as unknown as Organization)
       } catch (err) {
         setError("Failed to load organization")
       } finally {
