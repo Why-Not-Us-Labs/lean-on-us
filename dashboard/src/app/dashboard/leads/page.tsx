@@ -8,9 +8,11 @@ import { Badge } from "@/components/ui/badge"
 import { formatPhoneNumber } from "@/lib/utils"
 import { format } from "date-fns"
 import type { ColumnDef } from "@tanstack/react-table"
-import type { Lead } from "@/lib/supabase/types"
+import type { Lead, Organization } from "@/lib/supabase/types"
 import { Button } from "@/components/ui/button"
-import { ArrowUpDown, Star } from "lucide-react"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowUpDown, Star, Lock, Zap } from "lucide-react"
+import Link from "next/link"
 
 function getScoreColor(score: number | null): string {
   if (!score) return "text-muted-foreground"
@@ -130,11 +132,30 @@ const columns: ColumnDef<Lead>[] = [
 
 export default function LeadsPage() {
   const [leads, setLeads] = useState<Lead[]>([])
+  const [org, setOrg] = useState<Organization | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchLeads() {
       const supabase = createClient()
+      
+      // Get user's organization
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        setLoading(false)
+        return
+      }
+
+      const { data: membership } = await supabase
+        .from("org_members")
+        .select("org_id, organizations(*)")
+        .eq("user_id", user.id)
+        .single()
+
+      if (membership) {
+        setOrg(membership.organizations as Organization)
+      }
+
       const { data } = await supabase
         .from("leads")
         .select("*")
@@ -157,6 +178,25 @@ export default function LeadsPage() {
               <div key={i} className="h-12 animate-pulse rounded-lg bg-muted" />
             ))}
           </div>
+        ) : org?.tier === "free" ? (
+          <Card className="border-primary bg-gradient-to-br from-primary/5 to-primary/10">
+            <CardContent className="flex flex-col items-center justify-center py-16 text-center">
+              <div className="rounded-full bg-primary/20 p-4 mb-6">
+                <Lock className="h-8 w-8 text-primary" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Lead Capture Available on Paid Plans</h3>
+              <p className="text-muted-foreground mb-6 max-w-md">
+                Upgrade to start capturing leads automatically from your AI phone calls. 
+                Track prospects, scores, and follow-up opportunities.
+              </p>
+              <Button asChild size="lg">
+                <Link href="/dashboard/billing">
+                  <Zap className="mr-2 h-5 w-5" />
+                  Upgrade to Starter
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
         ) : (
           <DataTable
             columns={columns}

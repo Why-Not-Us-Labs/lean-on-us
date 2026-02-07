@@ -6,7 +6,7 @@ export type Json =
   | { [key: string]: Json | undefined }
   | Json[]
 
-export type OrgTier = "starter" | "pro" | "enterprise"
+export type OrgTier = "free" | "starter" | "pro" | "enterprise"
 export type OrgRole = "owner" | "admin" | "member"
 
 export interface Database {
@@ -20,6 +20,10 @@ export interface Database {
           tier: OrgTier
           created_at: string
           settings: Json
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
+          subscription_status: string
+          current_period_end: string | null
         }
         Insert: {
           id?: string
@@ -28,6 +32,10 @@ export interface Database {
           tier?: OrgTier
           created_at?: string
           settings?: Json
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          subscription_status?: string
+          current_period_end?: string | null
         }
         Update: {
           id?: string
@@ -36,6 +44,10 @@ export interface Database {
           tier?: OrgTier
           created_at?: string
           settings?: Json
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
+          subscription_status?: string
+          current_period_end?: string | null
         }
       }
       org_members: {

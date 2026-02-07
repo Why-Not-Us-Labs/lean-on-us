@@ -6,10 +6,11 @@ import { Header } from "@/components/dashboard/header"
 import { StatCard } from "@/components/dashboard/stat-card"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Phone, Clock, DollarSign, Users, PhoneIncoming, ArrowRight } from "lucide-react"
+import { Phone, Clock, DollarSign, Users, PhoneIncoming, ArrowRight, Zap } from "lucide-react"
 import { formatDuration, formatCurrency, timeAgo, formatPhoneNumber } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import type { Call } from "@/lib/supabase/types"
+import type { Call, Organization } from "@/lib/supabase/types"
 
 interface DashboardStats {
   totalCalls: number
@@ -27,11 +28,29 @@ export default function DashboardPage() {
     totalLeads: 0,
     recentCalls: [],
   })
+  const [org, setOrg] = useState<Organization | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     async function fetchStats() {
       const supabase = createClient()
+
+      // Get user's organization
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) {
+        setLoading(false)
+        return
+      }
+
+      const { data: membership } = await supabase
+        .from("org_members")
+        .select("org_id, organizations(*)")
+        .eq("user_id", user.id)
+        .single()
+
+      if (membership) {
+        setOrg(membership.organizations as Organization)
+      }
 
       const [callsRes, leadsRes, recentCallsRes] = await Promise.all([
         supabase.from("calls").select("*"),
@@ -95,6 +114,28 @@ export default function DashboardPage() {
           />
         </div>
 
+        {/* Free Tier Upgrade Banner */}
+        {org?.tier === "free" && (
+          <Card className="border-primary bg-gradient-to-br from-primary/5 to-primary/10">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <div className="rounded-full bg-primary/20 p-3">
+                  <Zap className="h-6 w-6 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold">You're on the Free Plan</h3>
+                  <p className="text-sm text-muted-foreground">
+                    Upgrade to Starter to activate your AI phone assistant and start handling real calls.
+                  </p>
+                </div>
+                <Button asChild>
+                  <Link href="/dashboard/billing">Upgrade Now</Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         {/* Recent Calls */}
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
@@ -121,8 +162,16 @@ export default function DashboardPage() {
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <PhoneIncoming className="h-12 w-12 text-muted-foreground/30" />
                 <p className="mt-4 text-sm text-muted-foreground">
-                  No calls yet. Your AI receptionist is ready and waiting!
+                  {org?.tier === "free" 
+                    ? "Upgrade to start receiving calls with your AI receptionist!"
+                    : "No calls yet. Your AI receptionist is ready and waiting!"
+                  }
                 </p>
+                {org?.tier === "free" && (
+                  <Button asChild className="mt-4" variant="outline">
+                    <Link href="/dashboard/billing">View Plans</Link>
+                  </Button>
+                )}
               </div>
             ) : (
               <div className="space-y-2">

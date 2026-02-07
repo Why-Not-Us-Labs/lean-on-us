@@ -13,6 +13,22 @@ export interface TierLimits {
 }
 
 export const TIER_CONFIG: Record<OrgTier, TierLimits> = {
+  free: {
+    name: "Free",
+    monthlyPrice: 0,
+    setupPrice: 0,
+    minutesIncluded: 0,
+    overagePerMinute: 0,
+    phoneLines: 0,
+    maxLocations: 1,
+    maxSeats: 1,
+    features: [
+      "Dashboard access",
+      "Demo call recordings",
+      "Call transcript viewer",
+      "Upgrade anytime",
+    ],
+  },
   starter: {
     name: "Starter",
     monthlyPrice: 750_00, // cents
@@ -83,10 +99,12 @@ export function getTierLimits(tier: OrgTier): TierLimits {
 
 export function isFeatureAvailable(
   tier: OrgTier,
-  feature: "liveTransfer" | "bilingual" | "crmIntegration" | "smsFollowup" | "advancedRouting" | "whiteLabel" | "customVoice"
+  feature: "liveTransfer" | "bilingual" | "crmIntegration" | "smsFollowup" | "advancedRouting" | "whiteLabel" | "customVoice" | "phoneLines" | "callRecordings"
 ): boolean {
-  const tierLevel = { starter: 0, pro: 1, enterprise: 2 }
+  const tierLevel = { free: -1, starter: 0, pro: 1, enterprise: 2 }
   const featureMinTier: Record<string, number> = {
+    phoneLines: 0,       // starter+
+    callRecordings: 0,   // starter+
     liveTransfer: 1,     // pro+
     bilingual: 1,         // pro+
     crmIntegration: 1,    // pro+

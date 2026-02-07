@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     const { error } = await supabase.auth.exchangeCodeForSession(code)
 
     if (!error) {
-      // Check if user has an org membership, if not auto-assign to WNU
+      // Check if user has an org membership, if not create new org
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
         const { data: membership } = await supabase
@@ -41,13 +41,30 @@ export async function GET(request: NextRequest) {
           .single()
 
         if (!membership) {
-          // Auto-assign new users to WNU org as owner (for now)
-          // In production, this would be an invite flow
-          await supabase.from("org_members").insert({
-            user_id: user.id,
-            org_id: "00000000-0000-0000-0000-000000000001", // WNU org
-            role: "owner",
-          })
+          // Create new org for new users (self-serve signup)
+          const emailDomain = user.email?.split('@')[0] || 'user'
+          const timestamp = Date.now().toString().slice(-4)
+          const orgName = `${emailDomain.charAt(0).toUpperCase()}${emailDomain.slice(1)}`
+          const orgSlug = `${emailDomain}-${timestamp}`.toLowerCase()
+          
+          const { data: newOrg } = await supabase
+            .from("organizations")
+            .insert({
+              name: orgName,
+              slug: orgSlug,
+              tier: "free" as const,
+              settings: {}
+            })
+            .select("id")
+            .single()
+
+          if (newOrg) {
+            await supabase.from("org_members").insert({
+              user_id: user.id,
+              org_id: newOrg.id,
+              role: "owner",
+            })
+          }
         }
       }
 
