@@ -51,6 +51,59 @@ export async function POST(request: NextRequest) {
       ? Math.round(call.duration)
       : Math.round((new Date(endedAt).getTime() - new Date(startedAt).getTime()) / 1000)
 
+    // Resolve caller name from multiple sources
+    const callerNumber = call.customer?.number || null
+    let callerName: string | null = null
+
+    // 1. Check structured data from Vapi analysis
+    const structured = call.analysis?.structuredData
+    if (structured) {
+      callerName =
+        structured.callerName ||
+        structured.caller_name ||
+        structured.customerName ||
+        structured.customer_name ||
+        structured.name ||
+        null
+    }
+
+    // 2. Check customer object
+    if (!callerName && call.customer?.name) {
+      callerName = call.customer.name
+    }
+
+    // 3. Scan first few transcript turns for name introduction
+    if (!callerName && Array.isArray(call.transcript)) {
+      for (const turn of call.transcript.slice(0, 10)) {
+        if (turn.role === "user" || turn.role === "customer") {
+          const match = turn.message?.match(
+            /(?:(?:my name is|this is|i'm|i am|it's)\s+)([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)/i
+          )
+          if (match) {
+            callerName = match[1].trim()
+            break
+          }
+        }
+      }
+    }
+
+    // 4. Look up existing lead for this phone+org
+    let existingLead: { id: string; name: string | null } | null = null
+    if (callerNumber) {
+      const { data } = await supabase
+        .from("leads")
+        .select("id, name")
+        .eq("org_id", assistant.org_id)
+        .eq("phone", callerNumber)
+        .single()
+      existingLead = data
+    }
+
+    // Use lead name as fallback if we didn't extract one
+    if (!callerName && existingLead?.name) {
+      callerName = existingLead.name
+    }
+
     // Insert call record
     const { data: callRecord, error: callError } = await supabase
       .from("calls")
@@ -58,8 +111,8 @@ export async function POST(request: NextRequest) {
         org_id: assistant.org_id,
         assistant_id: assistant.id,
         vapi_call_id: call.callId || call.id,
-        caller_number: call.customer?.number || null,
-        caller_name: null, // Will be enriched later
+        caller_number: callerNumber,
+        caller_name: callerName,
         started_at: startedAt,
         ended_at: endedAt,
         duration_seconds: durationSeconds,
@@ -86,22 +139,31 @@ export async function POST(request: NextRequest) {
     }
 
     // Auto-create or update lead from caller number
-    const callerNumber = call.customer?.number
     if (callerNumber) {
-      const { data: existingLead } = await supabase
-        .from("leads")
-        .select("id")
-        .eq("org_id", assistant.org_id)
-        .eq("phone", callerNumber)
-        .single()
-
       if (!existingLead) {
         await supabase.from("leads").insert({
           org_id: assistant.org_id,
           phone: callerNumber,
+          name: callerName,
           source: "call",
           notes: call.summary || call.analysis?.summary || `Called on ${new Date(startedAt).toLocaleDateString()}`,
         })
+      } else if (callerName && !existingLead.name) {
+        // Update lead with newly discovered name
+        await supabase
+          .from("leads")
+          .update({ name: callerName })
+          .eq("id", existingLead.id)
+      }
+
+      // Backfill older calls from same number that have no caller_name
+      if (callerName) {
+        await supabase
+          .from("calls")
+          .update({ caller_name: callerName })
+          .eq("org_id", assistant.org_id)
+          .eq("caller_number", callerNumber)
+          .is("caller_name", null)
       }
     }
 
