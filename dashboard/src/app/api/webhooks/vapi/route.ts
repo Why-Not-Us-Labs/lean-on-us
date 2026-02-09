@@ -7,6 +7,16 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 )
 
+// Normalize phone to E.164 format (+1XXXXXXXXXX)
+function normalizePhone(phone: string | null | undefined): string | null {
+  if (!phone) return null
+  const digits = phone.replace(/\D/g, "")
+  if (digits.length === 10) return `+1${digits}`
+  if (digits.length === 11 && digits.startsWith("1")) return `+${digits}`
+  if (phone.startsWith("+")) return phone
+  return `+${digits}`
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -52,19 +62,36 @@ export async function POST(request: NextRequest) {
       : Math.round((new Date(endedAt).getTime() - new Date(startedAt).getTime()) / 1000)
 
     // Resolve caller name from multiple sources
-    const callerNumber = call.customer?.number || null
+    const callerNumber = normalizePhone(call.customer?.number)
     let callerName: string | null = null
 
-    // 1. Check structured data from Vapi analysis
-    const structured = call.analysis?.structuredData
-    if (structured) {
-      callerName =
-        structured.callerName ||
-        structured.caller_name ||
-        structured.customerName ||
-        structured.customer_name ||
-        structured.name ||
-        null
+    // 0. Check leads table FIRST — known callers should always resolve immediately
+    let existingLead: { id: string; name: string | null } | null = null
+    if (callerNumber) {
+      const { data } = await supabase
+        .from("leads")
+        .select("id, name")
+        .eq("org_id", assistant.org_id)
+        .eq("phone", callerNumber)
+        .single()
+      existingLead = data
+      if (existingLead?.name) {
+        callerName = existingLead.name
+      }
+    }
+
+    // 1. Check structured data from Vapi analysis (only if leads didn't resolve)
+    if (!callerName) {
+      const structured = call.analysis?.structuredData
+      if (structured) {
+        callerName =
+          structured.callerName ||
+          structured.caller_name ||
+          structured.customerName ||
+          structured.customer_name ||
+          structured.name ||
+          null
+      }
     }
 
     // 2. Check customer object
@@ -85,23 +112,6 @@ export async function POST(request: NextRequest) {
           }
         }
       }
-    }
-
-    // 4. Look up existing lead for this phone+org
-    let existingLead: { id: string; name: string | null } | null = null
-    if (callerNumber) {
-      const { data } = await supabase
-        .from("leads")
-        .select("id, name")
-        .eq("org_id", assistant.org_id)
-        .eq("phone", callerNumber)
-        .single()
-      existingLead = data
-    }
-
-    // Use lead name as fallback if we didn't extract one
-    if (!callerName && existingLead?.name) {
-      callerName = existingLead.name
     }
 
     // Insert call record
