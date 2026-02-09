@@ -33,8 +33,11 @@ export async function middleware(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Allow webhook routes without auth
-  if (request.nextUrl.pathname.startsWith("/api/webhooks")) {
+  // Allow webhook and SMS API routes without auth
+  if (
+    request.nextUrl.pathname.startsWith("/api/webhooks") ||
+    request.nextUrl.pathname.startsWith("/api/sms")
+  ) {
     return supabaseResponse
   }
 
