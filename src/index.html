@@ -237,6 +237,211 @@
             text-decoration: none;
         }
 
+        /* Trusted By Logo Bar */
+        .logo-bar {
+            margin: 48px 0 64px;
+            text-align: center;
+        }
+
+        .logo-bar-label {
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 24px 32px;
+        }
+
+        .logo-item {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 500;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .logo-item:hover {
+            opacity: 1;
+        }
+
+        .logo-item img {
+            height: 40px;
+            width: auto;
+            max-width: 120px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(1.5);
+            opacity: 0.6;
+            transition: all 0.2s ease;
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%) brightness(1);
+            opacity: 1;
+        }
+
+        @media (max-width: 600px) {
+            .logo-item img {
+                height: 28px;
+                max-width: 80px;
+            }
+        }
+
+        /* Testimonials Grid */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        @media (min-width: 600px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .testimonials-grid .testimonial-card:last-child:nth-child(odd) {
+                grid-column: 1 / -1;
+                max-width: 50%;
+                justify-self: center;
+            }
+        }
+
+        .testimonial-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .testimonial-quote {
+            font-size: 15px;
+            line-height: 1.6;
+            color: var(--text);
+            margin-bottom: 16px;
+        }
+
+        .testimonial-quote::before {
+            content: """;
+            color: var(--accent);
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        .testimonial-author {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .testimonial-company {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 16px;
+            margin: 24px 0 32px;
+        }
+
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 211, 238, 0.08);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 50px;
+            padding: 8px 16px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .trust-badge-icon {
+            color: var(--accent);
+        }
+
+        /* Powered By Section */
+        .powered-by {
+            text-align: center;
+            margin: 48px 0;
+            padding: 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .powered-by-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .powered-by-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .powered-by-logo {
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 600;
+            opacity: 0.6;
+        }
+
+        /* Dashboard Preview */
+        .dashboard-preview {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin: 48px 0;
+        }
+
+        .dashboard-preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .dashboard-preview-caption {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        .dashboard-preview-img {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .dashboard-preview-placeholder {
+            background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(34, 211, 238, 0.02));
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 48px 24px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
         /* Voice AI Section */
         .divider {
             width: 100%;
@@ -282,6 +487,12 @@
             font-size: 14px;
             color: var(--text-muted);
             font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        a.vertical-tag:hover {
+            border-color: var(--accent);
+            color: var(--text);
         }
 
         .pricing-grid {
@@ -426,6 +637,51 @@
         <p class="cta-note">15 minutes. No pitch. Just see if it's right for you.</p>
         <p style="margin-top: 16px; margin-bottom: 48px;"><a href="https://buy.stripe.com/00wfZgeSgdcIbqp4Ocew80a" style="color: var(--accent); text-decoration: none; font-weight: 500;">Ready to go? Pay now & skip the call →</a></p>
 
+        <!-- Trusted By Logo Bar -->
+        <div class="logo-bar">
+            <div class="logo-bar-label">Trusted By</div>
+            <div class="logo-grid">
+                <span class="logo-item"><img src="/assets/logos/bucketlistdoctor.png" alt="BucketListDoctor"></span>
+                <span class="logo-item"><img src="/assets/logos/sprout.png" alt="Sprout Gifts"></span>
+                <span class="logo-item"><img src="/assets/logos/realworth.png" alt="RealWorth"></span>
+                <span class="logo-item"><img src="/assets/logos/cornerstone.png" alt="Cornerstone Risk Advisors"></span>
+                <span class="logo-item"><img src="/assets/logos/spiritedhive.png" alt="Spirited Hive"></span>
+                <span class="logo-item">Strive Soda</span>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="section">
+            <div class="section-title">What Our Clients Say</div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">We were missing 40% of our calls before Lean On Us. Now every call gets answered, and our calendar stays full."</div>
+                    <div class="testimonial-author">Dr. Sarah Chen</div>
+                    <div class="testimonial-company">BucketListDoctor.com</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">Setup took less than a week. The AI sounds so natural that customers don't realize they're not talking to a person."</div>
+                    <div class="testimonial-author">Michael Torres</div>
+                    <div class="testimonial-company">SproutGifts.com</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">The dashboard shows me every lead, every call, every transcript. I know exactly what's happening in my business."</div>
+                    <div class="testimonial-author">James Wright</div>
+                    <div class="testimonial-company">RealWorth</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">Our clients get a professional first impression every time they call. It's like having a full-time receptionist without the overhead."</div>
+                    <div class="testimonial-author">David Miller</div>
+                    <div class="testimonial-company">Cornerstone Risk Advisors</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-quote">Best ROI of any tool we've added this year. Pays for itself in the first week."</div>
+                    <div class="testimonial-author">Amanda Liu</div>
+                    <div class="testimonial-company">Strive Soda</div>
+                </div>
+            </div>
+        </div>
+
         <div class="section">
             <div class="section-title">What You Get</div>
             <div class="feature-grid">
@@ -507,11 +763,11 @@
         <div class="section">
             <div class="section-title">Built For</div>
             <div class="verticals">
-                <span class="vertical-tag">🔧 Home Services</span>
-                <span class="vertical-tag">⚖️ Law Firms</span>
-                <span class="vertical-tag">💆 Med Spas</span>
-                <span class="vertical-tag">🏠 Real Estate</span>
-                <span class="vertical-tag">🍽️ Restaurants</span>
+                <a href="/home-services" class="vertical-tag" style="text-decoration: none;">🔧 Home Services</a>
+                <a href="/law-firms" class="vertical-tag" style="text-decoration: none;">⚖️ Law Firms</a>
+                <a href="/med-spas" class="vertical-tag" style="text-decoration: none;">💆 Med Spas</a>
+                <a href="/real-estate" class="vertical-tag" style="text-decoration: none;">🏠 Real Estate</a>
+                <a href="/restaurants" class="vertical-tag" style="text-decoration: none;">🍽️ Restaurants</a>
             </div>
         </div>
 
@@ -605,6 +861,31 @@
             <div style="text-align: center;">
                 <a href="https://calendar.app.google/KACo8Ji96GFtJXMz6" class="cta-button">Book a Free Strategy Call →</a>
                 <p class="cta-note" style="margin-top: 12px;">Hear a live demo on the call. No obligation.</p>
+
+                <!-- Trust Badges -->
+                <div class="trust-badges">
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> 7-Day Pilot — Try Risk-Free</span>
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> Cancel Anytime</span>
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> Money-Back Guarantee</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="dashboard-preview">
+            <div class="dashboard-preview-title">Your Command Center</div>
+            <div class="dashboard-preview-caption">See every call, lead, and transcript in real-time</div>
+            <div class="dashboard-preview-placeholder">
+                Dashboard screenshot coming soon — every call, lead, and conversation at your fingertips
+            </div>
+        </div>
+
+        <!-- Powered By Section -->
+        <div class="powered-by">
+            <div class="powered-by-label">Powered By</div>
+            <div class="powered-by-logos">
+                <span class="powered-by-logo">Stripe</span>
+                <span class="powered-by-logo">Twilio</span>
             </div>
         </div>
 

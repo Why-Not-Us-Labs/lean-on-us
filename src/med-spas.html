@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Receptionist for Med Spas & Aesthetic Clinics | Lean On Us</title>
+    <meta name="description" content="Book more appointments, automatically. AI receptionist for med spas, aesthetic clinics, and wellness centers. 24/7 scheduling, treatment consultations, and lead capture.">
+    <meta property="og:title" content="AI Receptionist for Med Spas | Lean On Us">
+    <meta property="og:description" content="Book more appointments, automatically. AI receptionist that handles scheduling 24/7.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://leanon.us/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" type="image/svg+xml" href="/logo.svg">
+    <link rel="canonical" href="https://leanon.us/med-spas">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": "AI Receptionist for Med Spas",
+        "description": "24/7 AI receptionist for med spas and aesthetic clinics. Book more appointments, automatically.",
+        "brand": { "@type": "Brand", "name": "Lean On Us" },
+        "offers": { "@type": "Offer", "priceCurrency": "USD", "price": "750" }
+    }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a0b;
+            --surface: #141416;
+            --border: #2a2a2e;
+            --text: #fafafa;
+            --text-muted: #888;
+            --accent: #22d3ee;
+            --accent-glow: rgba(34, 211, 238, 0.15);
+        }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; min-height: 100vh; }
+        .container { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
+        .badge { display: inline-block; background: var(--accent-glow); border: 1px solid var(--accent); color: var(--accent); padding: 6px 14px; border-radius: 50px; font-size: 13px; font-weight: 500; margin-bottom: 24px; }
+        h1 { font-size: clamp(36px, 8vw, 56px); font-weight: 700; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.03em; }
+        .highlight { color: var(--accent); }
+        .subtitle { font-size: 20px; color: var(--text-muted); margin-bottom: 48px; max-width: 540px; }
+        .cta-button { display: inline-block; background: var(--accent); color: var(--bg); padding: 16px 32px; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: all 0.2s ease; margin-bottom: 12px; }
+        .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .cta-note { font-size: 14px; color: var(--text-muted); margin-bottom: 48px; }
+        .section { margin-bottom: 64px; }
+        .section-title { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 24px; }
+        .stat-callout { background: linear-gradient(135deg, rgba(34, 211, 238, 0.08), rgba(34, 211, 238, 0.02)); border: 1px solid rgba(34, 211, 238, 0.25); border-radius: 16px; padding: 32px; text-align: center; margin-bottom: 48px; }
+        .stat-callout .stat-number { font-size: clamp(28px, 6vw, 40px); font-weight: 700; color: var(--accent); line-height: 1.2; margin-bottom: 12px; }
+        .stat-callout .stat-detail { font-size: 18px; color: var(--text-muted); }
+        .voice-features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 48px; }
+        .voice-feature { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; text-align: center; }
+        .voice-feature .vf-icon { font-size: 28px; margin-bottom: 8px; }
+        .voice-feature .vf-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .voice-feature .vf-desc { font-size: 13px; color: var(--text-muted); }
+        .pricing-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 32px; }
+        .pricing-tier { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 28px; text-align: center; }
+        .pricing-tier.featured { border-color: var(--accent); }
+        .pricing-tier .tier-badge { display: inline-block; background: var(--accent); color: var(--bg); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 50px; margin-bottom: 16px; }
+        .pricing-tier .tier-name { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+        .pricing-tier .tier-price { font-size: 36px; font-weight: 700; color: var(--accent); }
+        .pricing-tier .tier-price span { font-size: 16px; font-weight: 400; color: var(--text-muted); }
+        .pricing-tier .tier-setup { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+        .pricing-tier .tier-features { text-align: left; list-style: none; }
+        .pricing-tier .tier-features li { padding: 6px 0; font-size: 14px; color: var(--text-muted); }
+        .pricing-tier .tier-features li::before { content: "✓"; color: var(--accent); margin-right: 10px; font-weight: 600; }
+        .trust-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 16px; margin: 24px 0 32px; }
+        .trust-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.2); border-radius: 50px; padding: 8px 16px; font-size: 13px; font-weight: 500; color: var(--text); }
+        .trust-badge-icon { color: var(--accent); }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+        .faq-item:last-child { border-bottom: none; }
+        .faq-q { font-weight: 600; margin-bottom: 8px; }
+        .faq-a { color: var(--text-muted); font-size: 15px; }
+        .footer { margin-top: 80px; padding-top: 40px; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 14px; }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .back-link { margin-bottom: 32px; }
+        .back-link a { color: var(--text-muted); text-decoration: none; font-size: 14px; }
+        .back-link a:hover { color: var(--accent); }
+        @media (min-width: 600px) { .pricing-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) { .container { padding: 48px 20px; } .voice-features-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="back-link"><a href="/">&larr; Back to Lean On Us</a></div>
+
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
+            <img src="/logo.svg" alt="Lean On Us" width="48" height="48">
+            <span style="font-weight: 600; font-size: 18px;">Lean On Us</span>
+        </div>
+
+        <div class="badge">For Med Spas & Aesthetic Clinics</div>
+
+        <h1>Book More <span class="highlight">Appointments</span>, Automatically</h1>
+
+        <p class="subtitle">
+            Your staff is busy with clients. Your phone is still ringing. Our AI receptionist handles scheduling, answers treatment questions, and captures every lead — 24/7.
+        </p>
+
+        <a href="https://calendar.app.google/KACo8Ji96GFtJXMz6" class="cta-button">Book a Free Strategy Call</a>
+        <p class="cta-note">See a live demo. No obligation.</p>
+
+        <div class="stat-callout">
+            <div class="stat-number">35% of spa calls go to voicemail during treatments.</div>
+            <div class="stat-detail">Those clients book with <strong style="color: var(--text);">your competitor</strong> instead.</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Built for Aesthetic Practices</div>
+            <div class="voice-features-grid">
+                <div class="voice-feature">
+                    <div class="vf-icon">💆</div>
+                    <div class="vf-title">Treatment-Aware</div>
+                    <div class="vf-desc">Knows your services — Botox, fillers, facials, laser. Answers questions and suggests treatments.</div>
+                </div>
+                <div class="voice-feature">
+                    <div class="vf-icon">📅</div>
+                    <div class="vf-title">Books Appointments</div>
+                    <div class="vf-desc">Syncs with Vagaro, Mangomint, Boulevard, or your calendar. Clients get confirmed slots instantly.</div>
+                </div>
+                <div class="voice-feature">
+                    <div class="vf-icon">💰</div>
+                    <div class="vf-title">Shares Pricing</div>
+                    <div class="vf-desc">Provide your price list and the AI quotes accurately. No surprises at checkout.</div>
+                </div>
+                <div class="voice-feature">
+                    <div class="vf-icon">🔔</div>
+                    <div class="vf-title">Appointment Reminders</div>
+                    <div class="vf-desc">SMS confirmations reduce no-shows. Reschedules handled automatically.</div>
+                </div>
+                <div class="voice-feature">
+                    <div class="vf-icon">✨</div>
+                    <div class="vf-title">Luxury Experience</div>
+                    <div class="vf-desc">Warm, professional tone that matches your brand. Clients feel taken care of from the first call.</div>
+                </div>
+                <div class="voice-feature">
+                    <div class="vf-icon">🧲</div>
+                    <div class="vf-title">Lead Capture</div>
+                    <div class="vf-desc">New client inquiries logged with contact info, interests, and notes. Never lose a lead.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hear It Live CTA -->
+        <div class="stat-callout" style="margin-bottom: 48px;">
+            <div class="stat-number" style="font-size: clamp(22px, 5vw, 32px);">Hear it live. Call right now.</div>
+            <div class="stat-detail" style="margin-bottom: 16px;">Our AI receptionist is answering our own business line 24/7.</div>
+            <a href="tel:+16674941303" class="cta-button" style="margin-top: 8px;">(667) 494-1303</a>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Pricing</div>
+            <div class="pricing-grid">
+                <div class="pricing-tier">
+                    <div class="tier-name">Starter</div>
+                    <div class="tier-price">$750<span>/mo</span></div>
+                    <div class="tier-setup">$1,500 one-time setup</div>
+                    <ul class="tier-features">
+                        <li><strong>1 phone line</strong></li>
+                        <li><strong>500 minutes included</strong></li>
+                        <li>24/7 scheduling</li>
+                        <li>Treatment info & pricing</li>
+                        <li>Lead capture</li>
+                        <li>Call summaries emailed</li>
+                    </ul>
+                </div>
+                <div class="pricing-tier featured">
+                    <div class="tier-badge">Most Popular</div>
+                    <div class="tier-name">Pro</div>
+                    <div class="tier-price">$1,000<span>/mo</span></div>
+                    <div class="tier-setup">$2,500 one-time setup</div>
+                    <ul class="tier-features">
+                        <li><strong>Up to 3 locations</strong></li>
+                        <li><strong>1,500 minutes included</strong></li>
+                        <li>Live call transfer</li>
+                        <li>Bilingual support</li>
+                        <li>Vagaro/Boulevard integration</li>
+                        <li>SMS confirmations & reminders</li>
+                    </ul>
+                </div>
+                <div class="pricing-tier">
+                    <div class="tier-name">Enterprise</div>
+                    <div class="tier-price">$1,500<span>/mo</span></div>
+                    <div class="tier-setup">$5,000 one-time setup</div>
+                    <ul class="tier-features">
+                        <li><strong>Up to 5 phone lines</strong></li>
+                        <li><strong>5,000 minutes included</strong></li>
+                        <li>Multi-location routing</li>
+                        <li>Custom AI voice</li>
+                        <li>White-label option</li>
+                        <li>Dedicated support</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="https://calendar.app.google/KACo8Ji96GFtJXMz6" class="cta-button">Book a Free Strategy Call</a>
+                <div class="trust-badges">
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> 7-Day Pilot — Try Risk-Free</span>
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> Cancel Anytime</span>
+                    <span class="trust-badge"><span class="trust-badge-icon">✓</span> Money-Back Guarantee</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Common Questions</div>
+            <div class="faq-item">
+                <div class="faq-q">Does it work with my booking software?</div>
+                <div class="faq-a">Yes. We integrate with Vagaro, Mangomint, Boulevard, Fresha, Acuity, and most spa scheduling systems. Bookings flow directly into your calendar.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">Can it answer questions about treatments?</div>
+                <div class="faq-a">Absolutely. We train the AI on your treatment menu, pricing, and FAQ. It can explain the difference between Botox and Dysport, recommend treatments, and answer pre-care questions.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">What about new client consultations?</div>
+                <div class="faq-a">The AI can book free consultations, collect basic health information, and prepare clients for their first visit. You review everything before the appointment.</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-q">How does it handle rescheduling?</div>
+                <div class="faq-a">Clients can call to reschedule and the AI handles it automatically. You can also set policies (e.g., 24-hour notice required) that the AI enforces.</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>Lean On Us</strong></p>
+            <p style="margin-top: 8px; font-style: italic; color: var(--accent);">"Whatever it takes."</p>
+            <p style="margin-top: 16px;">Questions? <a href="mailto:gavin@whynotus.ai">gavin@whynotus.ai</a></p>
+            <p style="margin-top: 24px; font-size: 12px; color: #555;">Lean On Us is a division of Why Not Us Labs LLC</p>
+        </div>
+    </div>
+</body>
+</html>
